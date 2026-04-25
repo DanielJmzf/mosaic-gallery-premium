@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backend (see Backend/.gitignore for details)
+Backend/node_modules/
+Backend/dist/
+Backend/.env
+Backend/prisma/*.db
+Backend/prisma/*.db-journal
+Backend/uploads/*
+!Backend/uploads/.gitkeep

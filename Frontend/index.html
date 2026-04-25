@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel & Laura | Nuestra Historia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="glass-nav">
+        <nav aria-label="Navegación principal">
+            <div class="logo" aria-label="Daniel y Laura">D&amp;L</div>
+            <ul>
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#story">Nuestra Historia</a></li>
+                <li><a href="#gallery">Galería</a></li>
+                <li><a href="#eventos">Eventos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content" data-reveal>
+                <p class="subtitle">Celebrando el amor</p>
+                <h1>Daniel Villanova <br>&amp; Laura Escorcia</h1>
+                <div class="scroll-indicator" aria-hidden="true">
+                    <span>Scroll</span>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="story" class="story-section">
+            <div class="container">
+                <div class="story-grid">
+                    <div class="story-text" data-reveal>
+                        <span class="label">El Comienzo</span>
+                        <h2>Un viaje compartido</h2>
+                        <p>A veces, las mejores historias no tienen un principio definido, sino una serie de momentos que se entrelazan. Esta es la crónica de nuestro camino juntos, capturada en fragmentos de luz y tiempo.</p>
+                        <p>Minimalismo no es la ausencia de algo, sino la presencia de lo esencial. Para nosotros, lo esencial es este viaje.</p>
+                    </div>
+                    <div class="story-image" data-reveal>
+                        <img src="assets/beach.png" alt="Daniel y Laura en la playa">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <div class="section-header" data-reveal>
+                    <span class="label">Momentos</span>
+                    <h2>Galería de Vida</h2>
+                </div>
+                <div class="mosaic-grid">
+                    <div class="mosaic-item tall" data-reveal>
+                        <img src="assets/garden.png" alt="Jardín Minimalista">
+                    </div>
+                    <div class="mosaic-item wide" data-reveal>
+                        <img src="assets/nature.png" alt="Naturaleza Dorada">
+                    </div>
+                    <div class="mosaic-item" data-reveal>
+                        <img src="assets/arch.png" alt="Arquitectura Moderna">
+                    </div>
+                    <div class="mosaic-item" data-reveal>
+                        <img src="assets/abstract.png" alt="Arte Abstracto">
+                    </div>
+                    <div class="mosaic-item large" data-reveal>
+                        <img src="assets/urban.png" alt="Ciudad de Noche">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== EVENTOS SECTION ===== -->
+        <section id="eventos" class="eventos-section">
+            <div class="container">
+                <div class="section-header" data-reveal>
+                    <span class="label">Timeline</span>
+                    <h2>Nuestros Eventos</h2>
+                </div>
+
+                <!-- Create Event Form -->
+                <div class="event-form-wrapper" data-reveal>
+                    <h3>Agregar nuevo evento</h3>
+                    <form id="event-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event-title">Título (opcional)</label>
+                                <input type="text" id="event-title" name="title" placeholder="Ej: Viaje a la playa">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-date">Fecha *</label>
+                                <input type="date" id="event-date" name="event_date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-description">Descripción *</label>
+                            <textarea id="event-description" name="description" rows="3" placeholder="Describe este momento especial..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-tags">Etiquetas (separadas por coma)</label>
+                            <input type="text" id="event-tags" name="tags" placeholder="Ej: viaje, playa, verano">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-photos">Fotos</label>
+                            <div class="file-drop-zone" id="file-drop-zone">
+                                <input type="file" id="event-photos" name="photos" accept="image/*" multiple>
+                                <span class="drop-label">Arrastra fotos aquí o haz clic para seleccionar</span>
+                                <div id="photo-previews" class="photo-previews"></div>
+                            </div>
+                        </div>
+                        <div id="form-error" class="form-error" role="alert" hidden></div>
+                        <button type="submit" class="btn-primary" id="submit-btn">
+                            <span class="btn-text">Publicar evento</span>
+                            <span class="btn-loading" hidden>Publicando...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Filters -->
+                <div class="events-filters" data-reveal>
+                    <input type="text" id="filter-search" placeholder="Buscar eventos..." aria-label="Buscar eventos">
+                    <input type="date" id="filter-date-from" aria-label="Fecha desde">
+                    <input type="date" id="filter-date-to" aria-label="Fecha hasta">
+                    <input type="text" id="filter-tags" placeholder="Filtrar por etiqueta..." aria-label="Filtrar por etiqueta">
+                    <button class="btn-outline" id="btn-filter">Filtrar</button>
+                    <button class="btn-ghost" id="btn-clear-filters">Limpiar</button>
+                </div>
+
+                <!-- Live indicator -->
+                <div class="live-badge" id="live-badge" hidden>
+                    <span class="live-dot"></span> En vivo
+                </div>
+
+                <!-- Events timeline -->
+                <div id="events-timeline" class="events-timeline">
+                    <div class="events-loading" id="events-loading">
+                        <div class="spinner"></div>
+                        <p>Cargando eventos...</p>
+                    </div>
+                    <div id="events-list" class="events-list"></div>
+                    <div id="events-empty" class="events-empty" hidden>
+                        <p>No se encontraron eventos. ¡Sé el primero en publicar uno!</p>
+                    </div>
+                    <div id="events-error" class="events-error" hidden>
+                        <p>No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.</p>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div id="pagination" class="pagination" hidden>
+                    <button class="btn-outline" id="btn-prev" disabled>← Anterior</button>
+                    <span id="page-info"></span>
+                    <button class="btn-outline" id="btn-next">Siguiente →</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Daniel &amp; Laura. Hecho con amor.</p>
+        </div>
+    </footer>
+
+    <!-- Socket.IO client (served by backend) -->
+    <script src="http://localhost:3001/socket.io/socket.io.js" onerror="console.warn('Socket.IO not available – backend may be offline')"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
