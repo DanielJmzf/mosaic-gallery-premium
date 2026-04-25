@@ -1,0 +1,35 @@
+name: Sync Frontend to docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Frontend/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clean and copy Frontend into docs
+        run: |
+          rm -rf docs
+          cp -r Frontend docs
+
+      - name: Commit docs if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          if git diff --cached --quiet; then
+            echo "No changes to docs — skipping commit."
+          else
+            git commit -m "chore: sync docs from Frontend [skip ci]"
+            git push
+          fi
