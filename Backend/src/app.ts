@@ -5,15 +5,27 @@ import { eventsRouter } from './routes/events';
 
 const app = express();
 
-// CORS
-const allowedOrigin = process.env.CORS_ORIGIN ?? '*';
+// CORS – only allow wildcard in explicit development mode; otherwise use an allowlist
+const isDev = process.env.NODE_ENV !== 'production';
+const corsOriginEnv = process.env.CORS_ORIGIN;
+
+// Build a fixed allowlist from the comma-separated env variable, or fall back to
+// localhost-only defaults in development.  Never allow '*' in production.
+const originAllowlist: string[] = corsOriginEnv
+    ? corsOriginEnv.split(',').map((o) => o.trim()).filter(Boolean)
+    : isDev
+      ? ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3000']
+      : [];
+
 app.use(cors({
-    origin: allowedOrigin === '*' ? '*' : (origin, cb) => {
-        if (!origin || origin === allowedOrigin) return cb(null, true);
-        cb(new Error('Not allowed by CORS'));
+    origin: (origin, cb) => {
+        // Allow requests with no Origin header (same-origin / curl / mobile apps)
+        if (!origin) return cb(null, true);
+        if (originAllowlist.includes(origin)) return cb(null, true);
+        cb(new Error(`Origin '${origin}' not allowed by CORS policy`));
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
 }));
 
 // Body parsers
