@@ -31,15 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Dynamic header background on scroll
+    // Dynamic header background on scroll — toggle .scrolled class
     const header = document.querySelector('.glass-nav');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.padding = '1rem 0';
-            header.style.background = 'rgba(251, 249, 244, 0.9)';
-        } else {
-            header.style.padding = '1.5rem 0';
-            header.style.background = 'rgba(251, 249, 244, 0.7)';
-        }
-    });
+        header.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
 });
